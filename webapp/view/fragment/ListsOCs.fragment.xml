@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:table="sap.ui.table" xmlns:m="sap.m">
+	<m:Dialog title="Ordenes de compra" contentWidth="25%">
+		<m:content>
+			
+			<m:List items="{/comboOrdenCompra/rowTemplate}" mode="SingleSelectMaster" 
+                selectionChange="onSelectionChange" includeItemInSelection="true">
+				<m:items>
+					<m:StandardListItem title="{Ebeln}" description="{SaldoFact} {Moneda}" iconDensityAware="false" iconInset="false"/>
+				</m:items>
+			</m:List>
+		</m:content>
+		<m:beginButton>
+			<m:Button type="Reject" text="Cerrar" press="onPressCancel"/>
+		</m:beginButton>
+	</m:Dialog>
+</core:FragmentDefinition>

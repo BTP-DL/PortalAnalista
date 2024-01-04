@@ -1,0 +1,93 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:unified="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:table="sap.ui.table"
+    xmlns:rich="sap.ui.richtexteditor"
+	xmlns:core="sap.ui.core">
+	<Dialog resizable="false" title="Cargar Noticia" contentWidth="70%" contentHeight="95%">
+		<content>
+			<f:Form editable="true">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="4"
+						labelSpanL="4"
+						labelSpanM="12"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="1"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>Titulo}" visible="true">
+								<f:fields>
+									<Input value="{/CargaNoticia/Titulo}" />
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>Desde}" visible="true">
+								<f:fields>
+									<DatePicker value="{/CargaNoticia/FechaIniFormatted}" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"/>
+								</f:fields>
+							</f:FormElement>
+                            <f:FormElement label="{i18n>Hasta}" visible="true">
+								<f:fields>
+									<DatePicker value="{/CargaNoticia/FechaFinFormatted}" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"/>
+								</f:fields>
+							</f:FormElement>
+                            <f:FormElement label="{i18n>ElegirGrupo}" visible="true">
+								<f:fields>
+                                    <VBox>
+                                        <items>
+                                            <CheckBox text="{i18n>Nacional}" selected="{/CargaNoticia/GrupoNac}"/>
+                                            <CheckBox text="{i18n>Exterior}" selected="{/CargaNoticia/GrupoExt}"/>
+                                        </items>
+                                        
+                                    </VBox>
+								</f:fields>
+							</f:FormElement>							
+						</f:formElements>
+					</f:FormContainer>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>Mensaje}" visible="true">
+								<f:fields>
+									<rich:RichTextEditor value="{/CargaNoticia/IvCuerpo}" editorType="TinyMCE5"
+                                    showGroupFont="true" showGroupLink="true" showGroupFontStyle="true"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>	
+		<beginButton>
+				
+			<Button
+					type="Accept"
+					text="{i18n>Confirmar}"
+					icon="sap-icon://accept"
+					press="onPressConfirmNoticia" />
+			</beginButton>
+			<endButton>
+				<Button
+					type="Reject"
+					icon="sap-icon://decline"
+					text="{i18n>Cancelar}"
+					press="onPressCancelNoticia" />
+			</endButton>	
+				
+	</Dialog>
+	
+</core:FragmentDefinition>
+
+
+

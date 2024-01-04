@@ -1,0 +1,264 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
+    xmlns:table="sap.ui.table" xmlns:core="sap.ui.core" 
+    xmlns="sap.m"  xmlns:forms="sap.ui.layout.form"
+    controllerName="simplot.portalsanalistaqas.controller.Facturas.FacturasView"
+    height="100%">
+    <Page backgroundDesign="List" class="sapUiStdPage" showNavButton="true"
+		navButtonPress="onNavBack" visible="true">
+
+        <Panel expandable="true" expanded="true" headerText="{i18n>claim.filtros.label}" width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <forms:SimpleForm
+                    editable="false"
+                    layout="ColumnLayout"
+                    title=""
+                    columnsM="2"
+                    columnsL="2"
+                    columnsXL="2">
+                    <forms:content>                       
+
+                        <Label text="{i18n>Proveedor}" />
+                        <Input value="{/Filtros/Lifnr}"/>
+
+                        <Label text="{i18n>Estado}" />
+                        <ComboBox items="{/Filtros/Estado}" selectedKey="{/Filtros/selectEstado}">
+                            <core:Item key="{key}" text="{value}"/>
+                        </ComboBox>
+
+                        <Label text="{i18n>FechaCarga}" />
+                        <DateRangeSelection
+                            id="DRS2"
+                            valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"
+                            dateValue="{path:'/Filtros/dateValueOne'}"
+                            secondDateValue="{path:'/Filtros/dateValueTwo'}"
+                            change="handleChange"
+                        />
+
+                        <Label text="{i18n>Sociedad}" />
+                        <ComboBox items="{/Filtros/Sociedad}" selectedKey="{/Filtros/selectSociedad}">
+                            <core:Item key="{Codigo}" text="{Texto}"/>
+                        </ComboBox>
+
+                        <Label text="{i18n>Numero}" />
+                        <Input value="{/Filtros/Numero}"/>
+
+                        <Label text="{i18n>TipoDoc}" />
+                        <ComboBox items="{/Filtros/TipoDoc}" selectedKey="{/Filtros/selectTipoDoc}">
+                            <core:Item key="{key}" text="{value}"/>
+                        </ComboBox>
+
+                        <Label text="{i18n>Circuito}" />
+                        <ComboBox items="{/Filtros/Circuito}" selectedKey="{/Filtros/selectCircuito}">
+                            <core:Item key="{key}" text="{value}"/>
+                        </ComboBox>
+
+                        <Label text="{i18n>OrdenCompra}" />
+                        <Input value="{/Filtros/NumOc}"/>       				
+                    </forms:content>
+                </forms:SimpleForm>
+                
+                <OverflowToolbar>
+                        <Button press="onPressFilter" icon="sap-icon://filter" />
+                        <Button press="onClearFilter" icon="sap-icon://clear-filter"/>
+                </OverflowToolbar>
+            </content>
+        </Panel>
+          
+		<content>
+            <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+            
+                <table:Table
+                    alternateRowColors="true"
+                    rows="{/rowsFacturasView}"
+                    class="sapUiSizeCompact"
+                    selectionMode="None" 
+                    visibleRowCount="{/rowsFacturasViewCount}">
+                    <table:extension>
+                        <OverflowToolbar>
+                            <Title text="{i18n>Facturas}"/>
+                            <ToolbarSpacer/>
+                            <SearchField search="onSearch" liveChange="onSearch" showRefreshButton="false" 
+                                tooltip="{i18n>masterSearchTooltip}"
+                                width="30%" value="{/valueSearch}"/>
+                            <Button  type="Transparent" press="onDownloadExcel" icon="sap-icon://excel-attachment" />
+                                
+                        </OverflowToolbar>
+                    </table:extension>
+                    <table:columns>
+                        <table:Column width="3.1rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Fecha}">
+                            <table:label>
+                                <Label  text="" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button  type="Transparent" press="onDetailFactura" icon="sap-icon://feeder-arrow" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Fecha}">
+                            <table:label>
+                                <Label  text="{i18n>Estado}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{StateValue}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Fecha}">
+                            <table:label>
+                                <Label  text="{i18n>Numero}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{Lifnr}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="7rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Fecha}">
+                            <table:label>
+                                <Label  text="{i18n>Nombre}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{Nombre}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        
+
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Hora}">
+                            <table:label>
+                                <Label  text="{i18n>TipoDocumento}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{TipoDocValue}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Hora}">
+                            <table:label>
+                                <Label  text="{i18n>SubtipoDoc}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{SubtipoDocValue}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>NroFactura}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{Numero}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>FechaDoc}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{FechaDoc}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Empresa}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{SociedadValue}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Circuito}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{CircuitoValue}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Moneda}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{Moneda}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Total}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{ImpBruto}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Subtotal}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{ImpNeto}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>TipoCambio}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{TipoCambio}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>OrdenCompra}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{NumOc}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>FechaCarga}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{FechaCarga}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Observacion}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button press="onViewNotaFactura" icon="sap-icon://notes" visible="{visibleCommentProveedor}"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Rechazo}">
+                            <table:label>
+                                <Label  text="{i18n>Rechazo}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button type="Reject" visible="{visibleCommentReject}" press="onRejectDocument" icon="sap-icon://notes" />
+                            </table:template>
+                        </table:Column>
+
+                    </table:columns>
+                </table:Table>
+            </Panel>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

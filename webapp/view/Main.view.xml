@@ -1,0 +1,48 @@
+<mvc:View  controllerName="simplot.portalsanalistaqas.controller.Main" xmlns:microchart="sap.suite.ui.microchart"
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap">
+	<uxap:ObjectPageLayout>
+		<uxap:sections>
+        
+			<uxap:ObjectPageSection visible="{/UserEnabled}" titleUppercase="false" title="{i18n>Vision}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="{i18n>Vision}" titleUppercase="false">
+						<uxap:blocks>
+							<HBox>
+                                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Pizarron}" subheader="" scope="Display" press="onPressPizarron">
+									<TileContent unit="" footer="">
+										<NumericContent value=" " valueColor="Critical" icon="sap-icon://newspaper" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+
+                                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Reclamos}" subheader="" busyIndicatorDelay="0" scope="Display" press="onPressReclamos">
+									<TileContent unit="" footer="">
+										<microchart:ComparisonMicroChart size="S" class="sapUiSmallMargin" shrinkable="true" minValue="0">
+											<microchart:data>
+												<microchart:ComparisonMicroChartData title="{i18n>claim.status.new}" value="{/Reclamos/CountNew}" color="Good"/>
+												<microchart:ComparisonMicroChartData title="{i18n>claim.status.inProcess}" value="{/Reclamos/CountInProcess}" color="Critical"/>
+											</microchart:data>
+										</microchart:ComparisonMicroChart>
+									</TileContent>
+								</GenericTile>
+
+                                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>ListFacturas}" scope="Display" press="onPressViewFacturas">
+									<TileContent>
+										<NumericContent value=" " icon="sap-icon://inspection" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+
+								<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>AprobarSolicitudes}" scope="Display" press="onPressSolicitudes">
+									<TileContent>
+										<NumericContent value=" " icon="sap-icon://inspection" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+							</HBox>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+							
+		</uxap:sections>
+	</uxap:ObjectPageLayout>	
+</mvc:View>
+

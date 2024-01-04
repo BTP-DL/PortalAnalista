@@ -1,0 +1,49 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/sap/(.*)$",
+      "target": "/sap/$1",
+      "destination": "GwSimplot_Qas",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+
+    {
+      "source": "^/cis/(.*)$",
+      "target": "/scim/Users/$1",
+      "destination": "CISdest2"
+    },
+    {
+      "source": "^/cisGroup/(.*)$",
+      "target": "/scim/Groups/e63d17ae-3a7a-41b4-8ddd-7a3dadaab6cf",
+      "destination": "CISdest2"
+    },
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/test-resources/(.*)$",
+      "target": "/test-resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+        "authenticationType": "xsuaa",
+        "csrfProtection": false,
+        "source": "scim/(.*)$",
+        "destination": "CISdest2",
+        "target": "$1"
+    }
+  ]
+}

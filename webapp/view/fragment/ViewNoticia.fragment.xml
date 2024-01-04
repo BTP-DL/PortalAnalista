@@ -1,0 +1,130 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:unified="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:table="sap.ui.table"
+    xmlns:rich="sap.ui.richtexteditor"
+	xmlns:core="sap.ui.core">
+	<Dialog resizable="false" title="{i18n>VerNoticia}" contentWidth="70%" contentHeight="95%">
+		<content>
+        <IconTabBar
+				select="handleIconTabBarSelect"
+				class="sapUiSizeCompact">
+				<items>
+					<IconTabFilter
+						icon="sap-icon://vds-file"
+						text="{i18n>Mensaje}"
+						iconColor="Positive"
+						tooltip="{i18n>Mensaje}"
+						key="Mensaje" >
+						<content>
+                            <f:Form editable="true">
+                                <f:layout>
+                                    <f:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="1"
+                                        columnsL="1"
+                                        columnsM="1"
+                                        singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>					
+                                    <f:FormContainer>
+                                        <f:formElements>
+                                            <f:FormElement label="{i18n>Mensaje}" visible="true">
+                                                <f:fields>
+                                                    <rich:RichTextEditor editable="false" value="{/ViewNoticia/EvCuerpo}" 
+                                                        customToolbar="false" showGroupFont="false" showGroupFontStyle="false"
+                                                        showGroupLink="false" showGroupInsert="false" showGroupClipboard="false"
+                                                        showGroupTextAlign="false" showGroupStructure="false" editorType="TinyMCE5"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                </f:formContainers>
+                            </f:Form>
+                        
+                        </content>
+                    </IconTabFilter>
+
+                    <IconTabFilter
+						icon="sap-icon://customer"
+						text="{i18n>Proveedores}"
+						iconColor="Positive"
+						tooltip="{i18n>Vistos}"
+						key="PizarronNoticias" >
+						<content>
+
+                            <table:Table
+                                alternateRowColors="true"
+                                rows="{/rowsProveedoresVisto}"
+                                class="sapUiSizeCompact"
+                                selectionMode="None" 
+                                visibleRowCount="{/rowsProveedoresVistoCount}">
+                                
+                                <table:columns>
+                                    <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Partner}">
+                                        <table:label>
+                                            <Label  text="{i18n>Partner}" textAlign="Center" />
+                                        </table:label>
+                                        <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                            <Label text="{BpSap}" textAlign="Center" />
+                                        </table:template>
+                                    </table:Column>
+                                    
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Nombre}">
+                                        <table:label>
+                                            <Label  text="{i18n>Nombre}" textAlign="Center" />
+                                        </table:label>
+                                        <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                            <Label text="{Nombre}" textAlign="Center" />
+                                        </table:template>
+                                    </table:Column>
+
+                                    <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Fecha}">
+                                        <table:label>
+                                            <Label  text="{i18n>Fecha}" textAlign="Center" />
+                                        </table:label>
+                                        <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                            <Label text="{Fecha}" textAlign="Center" />
+                                        </table:template>
+                                    </table:Column>
+
+                                    <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Hora}">
+                                        <table:label>
+                                            <Label  text="{i18n>Hora}" textAlign="Center" />
+                                        </table:label>
+                                        <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                            <Label text="{Hora}" textAlign="Center" />
+                                        </table:template>
+                                    </table:Column>
+                                </table:columns>
+                            </table:Table>
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+
+			
+		</content>	
+		<beginButton>
+			<Button
+                type="Emphasized"
+                text="{i18n>Volver}"
+                icon="sap-icon://accept"
+                press="onPressConfirmNoticia" />
+        </beginButton>			
+	</Dialog>
+	
+</core:FragmentDefinition>
+
+
+

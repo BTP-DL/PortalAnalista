@@ -1,0 +1,162 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified">
+	<Dialog  title="{i18n>SolicitudesSolicitud}" contentWidth="90%" contentHeight="95%" >
+		<Page showHeader="false">
+		<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+		
+		<content>
+			<f:Form editable="false">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="4"
+						labelSpanL="4"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="2"
+						columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer title="{i18n>SolicitudesDatosSolicitud}">
+						<f:formElements>
+
+							<f:FormElement label="{i18n>SolicitudesNombreUsuario}">
+								<f:fields>
+									<Text text="{/Resumen/IasNombre} {/Resumen/IasApellido}" />
+								</f:fields>
+							</f:FormElement>
+
+							<f:FormElement label="{i18n>SolicitudesMail}">
+								<f:fields>
+									<Text text="{/Resumen/Mail}"/>
+								</f:fields>
+							</f:FormElement>
+							
+							<f:FormElement label="{i18n>SolicitudesFecha}">
+								<f:fields>
+									<Text text="{/Resumen/FechaFormatt}"/>
+								</f:fields>
+							</f:FormElement>
+							
+						</f:formElements>
+					</f:FormContainer>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>SolicitudesRazonSocial}">
+								<f:fields>
+									<Text text="{/Resumen/Nombre}"/>
+								</f:fields>
+							</f:FormElement>
+
+							<f:FormElement label="{i18n>SolicitudesNif}">
+								<f:fields>
+									<Text text="{/Resumen/Nif}"/>
+								</f:fields>
+							</f:FormElement>
+
+							<f:FormElement label="{i18n>SolicitudesPais}">
+								<f:fields>
+									<Text text="{/Resumen/PaisFormatt}"/>
+								</f:fields>
+							</f:FormElement>
+
+							
+							<f:FormElement label="{i18n>SolicitudesTipo}">
+								<f:fields>
+									<Text text="{/Resumen/TipoFormatt}"/>
+								</f:fields>
+							</f:FormElement>
+							
+							
+							<f:FormElement label="{i18n>SolicitudesComentario}">
+								<f:fields>
+									<TextArea rows="4"  enabled="false" value="{/Resumen/Comentario}"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+
+			<f:Form editable="false">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="4"
+						labelSpanL="4"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="2"
+						columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer title="{i18n>SolicitudesDatosControl}">
+						<f:formElements>
+							<f:FormElement label="{i18n>SolicitudesNombreSAP}">
+								<f:fields>
+									<Text text="{/Resumen/NombreSap}"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>SolicitudesBpSap}">
+								<f:fields>
+									<Text text="{/Resumen/BpSap}"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>SolicitudesNrSap}">
+								<f:fields>
+									<Text text="{/Resumen/NrSap}"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+		</Panel>
+		<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+		<content>
+            <f:Form  editable="true">
+                <f:layout>
+                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" 
+                        adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+                        columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false"/>
+                </f:layout>
+                <f:formContainers>
+                    <f:FormContainer>
+                         <f:formElements>
+                         	<f:FormElement label="{i18n>SolicitudesMotivoRechazo}">
+                                <f:fields>
+									<TextArea rows="4"  enabled="{/Resumen/visibleAcceptReject}" value="{/Resumen/Rechazo}"/>
+                            	</f:fields>
+                            </f:FormElement>
+                         </f:formElements>
+                    </f:FormContainer>
+                    
+                </f:formContainers>
+            </f:Form>   
+        </content>
+		</Panel>
+		<footer>
+			<OverflowToolbar>
+				<Button type="Reject" text="{i18n>SolicitudesCerrar}" press="onPressCancel" />
+				<ToolbarSpacer/>
+				<Button type="Accept" text="{i18n>SolicitudesAceptar}" 
+					visible="{/Resumen/visibleAcceptReject}" icon="sap-icon://save" press="onAcceptSol" />
+				<Button type="Reject" text="{i18n>SolicitudesRechazar}" 
+					visible="{/Resumen/visibleAcceptReject}" press="onRejectSol" />
+			</OverflowToolbar>
+		</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

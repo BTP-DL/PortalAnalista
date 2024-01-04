@@ -1,0 +1,75 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+	xmlns:m="sap.m"
+    xmlns:attachment="simplot.portalsanalistaqas.view.Claim.block.attachment"
+    xmlns:conversation="simplot.portalsanalistaqas.view.Claim.block.conversation"
+    xmlns:information="simplot.portalsanalistaqas.view.Claim.block.information"
+    controllerName="simplot.portalsanalistaqas.controller.Claim.Claim"
+    height="100%" busyIndicatorDelay="0">
+	<ObjectPageLayout id="ObjectPageLayout"
+		showTitleInHeaderContent="false"
+		showFooter="false"
+		showHeaderContent="false"
+		showOnlyHighImportance="false"
+		alwaysShowContentHeader="false"
+		showEditHeaderButton="false"
+		enableLazyLoading="false"
+		upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageHeader isActionAreaAlwaysVisible="false" isObjectIconAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false" isObjectTitleAlwaysVisible="false">
+				<navigationBar>
+					<m:Bar>
+						<m:contentLeft>
+							<m:Button icon="sap-icon://nav-back" tooltip="{i18n>claim.back.text}" press=".onClaimBackPress" />
+						</m:contentLeft>
+						<m:contentRight>
+							<m:Button type="Accept" icon="sap-icon://save" text="{i18n>claim.save.text}" tooltip="{i18n>claim.save.text}" press=".onClaimSavePress" visible="{= ${Estado} !== '3'}" />
+							<m:Button type="Reject" icon="sap-icon://decline" text="{i18n>claim.close.text}" tooltip="{i18n>claim.close.text}" press=".onClaimClosePress" visible="{= ${Estado} !== '3'}" />
+						</m:contentRight>
+					</m:Bar>
+				</navigationBar>
+				<!-- <actions>
+				</actions> -->
+			</ObjectPageHeader>
+		</headerTitle>
+
+		<sections>
+			<ObjectPageSection titleUppercase="false" id="information-tab" title="{i18n>claim.information.title}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<information:InformationBlock id="informationBlock" />
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="conversacion-tab" title="{i18n>claim.conversations.title}" visible="{= ${Nrorec} !== '0000000000'}">
+				<subSections>
+					<ObjectPageSubSection mode="Expanded">
+						<blocks>
+							<conversation:ConversationBlock />
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="attachment-tab" title="{i18n>claim.attachments.title}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<attachment:AttachmentBlock id="attachmentBlock" />
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		<!--footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button type="Accept" text="Accept"/>
+				<m:Button type="Reject" text="Reject"/>
+			</m:OverflowToolbar>
+		</footer-->
+	</ObjectPageLayout>
+</mvc:View>

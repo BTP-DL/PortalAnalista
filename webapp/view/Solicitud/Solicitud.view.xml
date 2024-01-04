@@ -1,0 +1,170 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
+    xmlns:table="sap.ui.table" xmlns:core="sap.ui.core" 
+    xmlns="sap.m"  xmlns:forms="sap.ui.layout.form"
+    controllerName="simplot.portalsanalistaqas.controller.Solicitud.Solicitud"
+    height="100%">
+    <Page backgroundDesign="List" class="sapUiStdPage" showNavButton="true"
+		navButtonPress="onNavBack" visible="true">
+
+        <Panel expandable="true" expanded="true" headerText="" width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <forms:SimpleForm
+                    editable="false"
+                    layout="ColumnLayout"
+                    title=""
+                    columnsM="2"
+                    columnsL="2"
+                    columnsXL="2">
+                    <forms:content>              
+
+                        <Label text="{i18n>SolicitudesEsta}" />
+                        <ComboBox items="{/Filtros/Estado}" selectedKey="{/Filtros/selectEstado}">
+                            <core:Item key="{key}" text="{value}"/>
+                        </ComboBox>
+
+                        <Label text="{i18n>SolicitudesFecha}" />
+                        <DateRangeSelection
+                            id="DRS2"
+                            valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"
+                            dateValue="{path:'/Filtros/dateValueOne'}"
+                            secondDateValue="{path:'/Filtros/dateValueTwo'}"
+                            change="handleChange"
+                        />    				
+                    </forms:content>
+                </forms:SimpleForm>
+                
+                <OverflowToolbar>
+                        <Button press="onPressFilter" text="{i18n>SolicitudesFiltrar}" icon="sap-icon://filter" />
+                </OverflowToolbar>
+            </content>
+        </Panel>
+          
+		<content>
+            <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">            
+                <table:Table
+                    alternateRowColors="true"
+                    rows="{/Solicitud}"
+                    class="sapUiSizeCompact"
+                    selectionMode="None" 
+                    visibleRowCount="{/SolicitudCount}">
+                    <table:extension>
+                        <OverflowToolbar>
+                            <Title text="{i18n>SolicitudesSolicitudes}"/>
+                            <ToolbarSpacer/>
+                            <!--
+                            <SearchField search="onSearch" liveChange="onSearch" showRefreshButton="false" 
+                                tooltip="{i18n>masterSearchTooltip}"
+                                width="30%" value="{/valueSearch}"/>
+                            <Button visible="false"  type="Transparent" press="onDownloadExcel" icon="sap-icon://excel-attachment" />
+                                -->
+                        </OverflowToolbar>
+                    </table:extension>
+                    <table:columns>
+                    
+                        <table:Column width="4rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Detalle}">
+                            <table:label>
+                                <Label  text="" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button  press="onPressDetail" icon="sap-icon://feeder-arrow" />
+                            </table:template>
+                        </table:Column>
+                        <!--
+                        <table:Column width="5rem" visible="{/visibleAcceptReject}" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Rechazo}">
+                            <table:label>
+                                <Label  text="{i18n>Aceptar}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button type="Accept"  press="onAcceptSol" icon="sap-icon://accept" />
+                            </table:template>
+                        </table:Column>
+                        <table:Column width="5rem" visible="{/visibleAcceptReject}" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Rechazo}">
+                            <table:label>
+                                <Label  text="{i18n>Rechazar}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button type="Reject"  press="onRejectSol" icon="sap-icon://decline" />
+                            </table:template>
+                        </table:Column>
+                        -->
+                        <table:Column width="17rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>SolicitudesNombreUsuario}">
+                            <table:label>
+                                <Label  text="{i18n>SolicitudesNombreUsuario}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{IasNombre} {IasApellido}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+
+                        <table:Column  class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>SolicitudesMail}">
+                            <table:label>
+                                <Label  text="{i18n>SolicitudesMail}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{Mail}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        
+
+                        <table:Column width="15rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>SolicitudesNif}">
+                            <table:label>
+                                <Label  text="{i18n>SolicitudesRazonSocial}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{Nombre}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="7rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>SolicitudesPais}">
+                            <table:label>
+                                <Label  text="{i18n>SolicitudesPais}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{PaisFormatt}" textAlign="Center"/>
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>SolicitudesTipo}">
+                            <table:label>
+                                <Label  text="{i18n>SolicitudesTipo}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{TipoFormatt}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+
+                        <table:Column width="6rem"  class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>SolicitudesFecha}">
+                            <table:label>
+                                <Label  text="{i18n>SolicitudesFecha}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Label text="{FechaFormatt}" textAlign="Center" />
+                            </table:template>
+                        </table:Column>
+                        <!--
+                        <table:Column width="5rem" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Titulo}">
+                            <table:label>
+                                <Label  text="{i18n>Comentario}" textAlign="Center" />
+                            </table:label>
+                            <table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+                                <Button press="onViewNotaFactura" icon="sap-icon://notification-2" visible="{visibleCommentProveedor}"/>
+                            </table:template>
+                        </table:Column>
+                        -->
+                        
+
+                    </table:columns>
+                </table:Table>
+            </Panel>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+                <Button press="onCargaMasiva" text="{i18n>SolicitudesCargaMasiva}" icon="sap-icon://upload" />
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

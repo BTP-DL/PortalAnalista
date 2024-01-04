@@ -1,0 +1,26 @@
+<mvc:View controllerName="simplot.portalsanalistaqas.controller.Claim.AttachmentBlock" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:upload="sap.m.upload">
+    <upload:UploadSet
+			id="UploadSet"
+			instantUpload="true"
+			showIcons="true"
+			uploadEnabled="{= ${Estado} !== '3'}"
+			terminationEnabled="true"
+			maxFileNameLength="30"
+			maxFileSize="200"
+			items="{path: 'Adjuntos', templateShareable: false}">
+		<upload:toolbar>
+			<OverflowToolbar>
+				<Button text="Download selected" press=".onDownloadAttachmentPress"/>
+				<ToolbarSpacer />
+			</OverflowToolbar>
+		</upload:toolbar>
+		<upload:items>
+			<upload:UploadSetItem
+				visibleEdit="false"
+				visibleRemove="false"
+				fileName="{Archivo}">
+			</upload:UploadSetItem>
+		</upload:items>
+	</upload:UploadSet>
+</mvc:View>

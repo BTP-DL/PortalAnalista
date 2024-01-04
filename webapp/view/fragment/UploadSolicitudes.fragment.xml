@@ -1,0 +1,176 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified">
+	<Dialog  title="{i18n>SolicitudesCargarExcel}" contentWidth="90%" contentHeight="95%" >
+		<content>
+			<f:Form editable="false">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="4"
+						labelSpanL="4"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="3"
+						columnsL="3"
+						columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>SolicitudesCargarAdjunto}">
+								<f:fields>
+									<u:FileUploader
+										id="myFileUpload"
+										name="myFileUpload"
+										useMultipart="false"
+										tooltip="Subir Adjunto"
+										change="onImport"
+										uploadComplete="handleUploadComplete"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+			<Panel width="auto" class="sapUiSizeCompact">
+				<table:Table
+					alternateRowColors="true"
+					rows="{/rowsDetail}"
+					class="sapUiSizeCompact"
+					selectionMode="None"
+					visibleRowCount="{/maxrowsDetail}">
+					<table:extension>
+						<OverflowToolbar>
+							<Title  text="{i18n>SolicitudesSolicitudes}"/>
+							<ToolbarSpacer/>
+							<Button  text="{i18n>SolicitudesTemplateEj}" icon="sap-icon://download" press="onDownloadTemplate" />
+							<!--
+							<SearchField placeholder="Ingrese Numero Personal o Nombre" liveChange="onSearchGastos" width="40%" />
+							-->
+						</OverflowToolbar>
+					</table:extension>
+					
+					<table:columns >
+						<table:Column  class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicitudesNombreUsuario}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<Label
+									visible="true"
+									text="{Nombre}"
+									textAlign="Center" />
+							</table:template>
+						</table:Column>
+						
+						<table:Column class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicitudesMail}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<Label
+									visible="true"
+									text="{Mail}"
+									textAlign="Center" />
+							</table:template>
+						</table:Column>
+
+						<table:Column class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicitudesTipo}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<Label
+									visible="true"
+									text="{Tipo}"
+									textAlign="Center" />
+							</table:template>
+						</table:Column>
+						
+						<table:Column  class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicitudesNif}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<Label
+									visible="true"
+									text="{Nif}"
+									textAlign="Center" />
+							</table:template>
+						</table:Column>
+
+						<table:Column  class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicitudesBpSap}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<Label
+									visible="true"
+									text="{BpSap}"
+									textAlign="Center" />
+							</table:template>
+						</table:Column>
+						 
+						<table:Column  class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicitudesPais}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<Label
+									visible="true"
+									text="{Pais}"
+									textAlign="Center" />
+							</table:template>
+						</table:Column>
+
+						<table:Column  class = "sapUiTableHeaderRow sapUiTableCell"
+							hAlign="Center" tooltip="">
+							<table:label>
+								<Label 
+									text="{i18n>SolicituesMensaje}"
+									textAlign="Center" />
+							</table:label>
+							<table:template  class = "sapUiTableHeaderRow sapUiTableCell">
+								<ObjectStatus
+									class="sapUiSmallMarginBottom"
+									text="{Mensaje}"
+									state="{MensajeState}" />
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</Panel>
+			
+			    
+			
+		</content>
+		<beginButton>
+			<Button type="Accept" text="{i18n>SolicitudesGrabar}" icon="sap-icon://save" press="onPressSaveMasiva" />
+		</beginButton>
+		<endButton>
+			<Button type="Reject" text="{i18n>SolicitudesCerrar}" press="onPressCancel" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

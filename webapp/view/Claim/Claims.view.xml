@@ -1,0 +1,209 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
+    xmlns:table="sap.ui.table"
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:forms="sap.ui.layout.form"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    controllerName="simplot.portalsanalistaqas.controller.Claim.Claims"
+    height="100%">
+    <Page backgroundDesign="List" class="sapUiStdPage" showNavButton="true"
+		navButtonPress="onNavBack" visible="true">
+
+        <Panel expandable="true" expanded="true" headerText="{i18n>claim.filtros.label}" width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <forms:SimpleForm
+                    editable="false"
+                    layout="ColumnLayout"
+                    title=""
+                    columnsM="2"
+                    columnsL="2"
+                    columnsXL="2">
+                    <forms:content>                       
+
+                        <Label text="{i18n>Estado}" />
+                        <MultiComboBox width="15rem" class="sapUiSmallMarginEnd" selectedKeys="{/Filtros/selectStatuses}"
+                            items="{/Filtros/rowStatuses}" placeholder="{i18n>claim.status.placeholder}">
+                            <core:Item key="{id}" text="{descripcion}"/>
+                        </MultiComboBox>
+
+                        
+
+                        <Label text="{i18n>claim.intcomercial.label}" />
+                        <MultiComboBox
+                            selectionFinish="handleFiltroEstado"
+                            items="{path: '/Filtros/rowsProveedor'}"
+                            selectedKeys="{/Filtros/selectProveedor}">
+                            <core:ListItem key="{Id}" text="{Name}" />
+                        </MultiComboBox>
+
+                        <Label text="{i18n>claim.reason.label}" />
+                        <MultiComboBox
+                            selectionFinish="handleFiltroEstado"
+                            items="{path: '/Filtros/rowsMotivos'}"
+                            selectedKeys="{/Filtros/selectMotivos}">
+                            <core:ListItem key="{Id}" text="{Name}" />
+                        </MultiComboBox>
+
+                        <Label text="{i18n>claim.user.label}" />
+                        <ComboBox items="{/Filtros/Users}" selectedKey="{/Filtros/selectUsers}" placeholder="{i18n>claim.user.placeholder}" enabled="{= !${viewModel>/myself}}" selectionChange=".onSearch">
+                            <core:Item key="{Usuario}" text="{Usuario}"/>
+                        </ComboBox>
+                        <CheckBox selected="{viewModel>/myself}" text="{claim.myself.label}" select=".onMyselfFilterChange" />
+
+                        <Label text="{i18n>Fecha}" />
+                        <DateRangeSelection
+                            id="DRS2"
+                            valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"
+                            dateValue="{path:'/Filtros/dateValueOne'}"
+                            secondDateValue="{path:'/Filtros/dateValueTwo'}"
+                            change="handleChange"
+                        />                    				
+                    </forms:content>
+                </forms:SimpleForm>
+                <OverflowToolbar>
+                        <Button press="onPressFilter" icon="sap-icon://filter" />
+                        <Button press="onClearFilter" icon="sap-icon://clear-filter"/>
+                </OverflowToolbar>
+            </content>
+        </Panel>
+
+		<content>
+				<!--smartTable:SmartTable id="claims-table" tableBindingPath="{/Claims/Data}" useExportToExcel="true" useVariantManagement="true" afterVariantInitialise=".onAfterVariantInitialise"
+					beforeRebindTable=".onBeforeRebindTable" useTablePersonalisation="true" header="{i18n>claim.title}" showRowCount="true"
+					enableAutoBinding="false" showFullScreenButton="true" persistencyKey="VARIANTE_RECLAMOS_PK"
+					initiallyVisibleFields="Nrorec,Fecha,Motivo,Prioridad,Estado,Titulo"
+					requestAtLeastFields="Nrorec,Fecha,Hora,Motivo,Prioridad,Estado,Titulo"
+					ignoreFromPersonalisation="BpSap,Hora,Usuario,FechaAsig,HoraAsig,AutorMod,UsuarioMod,FechaMod,HoraMod,IvCuerpo" class="sapUiResponsiveContentPadding">
+					<smartTable:customToolbar>
+						<Toolbar>
+							<ToolbarSpacer />
+							<SearchField id="searchField"  tooltip="{i18n>claim.search.tooltip}" placeholder="{i18n>claim.search.placeholder}" search=".onSearch" width="auto" value="{filterModel>/filter/Titulo}"></SearchField>
+							<MultiComboBox width="15rem" class="sapUiSmallMarginEnd" selectedKeys="{filterModel>/filter/Estado}"
+								selectionFinish=".onSearch" items="{matchcodes>/Statuses}" placeholder="{i18n>claim.status.placeholder}">
+								<core:Item key="{matchcodes>id}" text="{matchcodes>descripcion}"/>
+							</MultiComboBox>
+							<Button icon="sap-icon://add" type="Accept" text="{i18n>claim.create.tooltip}"  tooltip="{i18n>claim.create.tooltip}" press=".onCreateClaimsPress"/>
+						</Toolbar>
+					</smartTable:customToolbar-->
+					<table:Table id="claims-table" selectionMode="None" rowActionCount="1" selectionBehavior="RowOnly" class="sapUiSizeCompact">
+						<table:extension>
+							<Toolbar>
+								<Title text="{i18n>Reclamos} ({/Claims/Count})" />
+								<ToolbarSpacer />
+								<SearchField id="searchField"  tooltip="{i18n>claim.search.tooltip}" placeholder="{i18n>claim.search.placeholder}" search=".onSearch" width="auto" value="{filterModel>/filter/Titulo}"></SearchField>
+								<!-- {viewModel>/tableTitle}
+                                    <MultiComboBox width="15rem" class="sapUiSmallMarginEnd" selectedKeys="{filterModel>/filter/Estado}"
+                                        selectionFinish=".onSearch" items="{/Statuses/Data}" placeholder="{i18n>claim.status.placeholder}">
+                                        <core:Item key="{id}" text="{descripcion}"/>
+                                    </MultiComboBox>
+                                    <ComboBox items="{/Users/FilteredData}" selectedKey="{filterModel>/filter/Usuario}" placeholder="{i18n>claim.user.placeholder}" enabled="{= !${viewModel>/myself}}" selectionChange=".onSearch">
+                                        <core:Item key="{Usuario}" text="{Usuario}"/>
+                                    </ComboBox>
+                                    <CheckBox selected="{viewModel>/myself}" text="{claim.myself.label}" select=".onMyselfChange" />
+                                -->
+                                
+							</Toolbar>
+						</table:extension>
+						<table:rowActionTemplate>
+							<table:RowAction>
+								<table:items>
+									<table:RowActionItem tooltip="{i18n>claim.view.texto}" icon="sap-icon://show" press=".onViewClaimPress" />
+								</table:items>
+							</table:RowAction>
+						</table:rowActionTemplate>
+						<table:rowSettingsTemplate>
+							<table:RowSettings highlight="{path: 'Prioridad', formatter: '.formatter.getPriorityState'}" highlightText="{path: 'Prioridad', formatter: '.formatter.getPriorityDescription'}"/>
+						</table:rowSettingsTemplate>
+						<table:columns>
+							<table:Column id="nrorecColumn" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>claim.number.label}" width="6rem" sortProperty="Nrorec">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Nrorec", "columnIndex":"0", "leadingProperty": "Nrorec", "sortProperty": "Nrorec", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>claim.number.label}"/>
+								<table:template>
+									<Text text="{path: 'Nrorec', formatter: '.formatter.removeLeadingZeros'}" />
+								</table:template>              
+							</table:Column>
+
+                            <table:Column id="nrobpsapColumn" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>claim.bpsap.label}" width="6rem" sortProperty="Nrorec">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Nrorec", "columnIndex":"0", "leadingProperty": "Nrorec", "sortProperty": "Nrorec", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>claim.bpsap.label}"/>
+								<table:template>
+									<Text text="{path: 'BpSap', formatter: '.formatter.removeLeadingZeros'}" />
+								</table:template>              
+							</table:Column>
+
+                            <table:Column id="nombrebbpsapColumn" class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>Nombre}" width="12rem" sortProperty="Nrorec">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Nrorec", "columnIndex":"0", "leadingProperty": "Nrorec", "sortProperty": "Nrorec", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>Nombre}"/>
+								<table:template>
+									<Text text="{path: 'Nombre'}" />
+								</table:template>              
+							</table:Column>
+
+							<table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>claim.date.label}" width="10rem" sortProperty="Nrorec">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Fecha", "columnIndex":"1", "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>claim.date.label}"/>
+								<table:template>
+									<Text text="{parts: ['Fecha', 'Hora'], formatter: '.formatter.formatStringDate'}" />
+								</table:template>
+							</table:Column>
+
+							<table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Left"  tooltip="{i18n>claim.reason.label}" width="15rem" sortProperty="Motivo">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Motivo", "columnIndex":"3", "leadingProperty": "Motivo", "sortProperty": "Motivo", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>claim.reason.label}"/>
+								<table:template>
+									<Text text="{path: 'Motivo', formatter: '.formatter.getReasonDescription'}" wrapping="false" />
+								</table:template>              
+							</table:Column>
+
+							<table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>claim.priority.label}" width="6rem" sortProperty="Prioridad">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Prioridad", "columnIndex":"4", "leadingProperty": "Prioridad", "sortProperty": "Prioridad", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>claim.priority.label}"/>
+								<table:template>
+									<ObjectStatus text="{path: 'Prioridad', formatter: '.formatter.getPriorityDescription'}" state="{path: 'Prioridad', formatter: '.formatter.getPriorityState'}" inverted="true"/>
+								</table:template>              
+							</table:Column>
+
+							<table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center"  tooltip="{i18n>claim.status.label}" width="6rem" sortProperty="Estado">
+								<!-- <table:customData>
+									<core:CustomData key="p13nData"
+										value='\{"columnKey": "Estado", "columnIndex":"5", "leadingProperty": "Estado", "sortProperty": "Estado", "type": "string"}'/>
+								</table:customData> -->
+								<Label text="{i18n>claim.status.label}"/>
+								<table:template>
+									<ObjectStatus text="{path: 'Estado', formatter: '.formatter.getStatusDescription'}" state="{path: 'Estado', formatter: '.formatter.getStatusState'}" inverted="true"/>
+								</table:template>
+							</table:Column>
+                            <!--							
+                            <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Left"  tooltip="{i18n>claim.title.label}">
+								<Label text="{i18n>claim.title.label}"/>
+								<table:template>
+									<Text text="{Titulo}" wrapping="false" />
+								</table:template>
+							</table:Column>
+                            -->
+
+						</table:columns>
+					</table:Table>
+				<!-- </smartTable:SmartTable> -->
+		</content>
+	</Page>
+</mvc:View>

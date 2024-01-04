@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		showHeader="false"
+		contentWidth="300px"
+		contentHeight="300px"
+		placement="Top" >
+			<Page title="Motivo">
+				<TextArea  value="{/valueCommentRej}" 
+				showExceededText="true" maxLength="255" width="100%" 
+				valueState="{= ${/valueCommentRej}.length > 255 ? 'Warning' : 'None' }" 
+				valueLiveUpdate="false" liveChange="handleLiveChange" />
+				<footer>
+				<Toolbar>
+					<Button type="Reject" icon="sap-icon://unpaid-leave" text="Rechazar" press="onCommentRej"/>
+					<ToolbarSpacer/>
+					
+				</Toolbar>
+			</footer>
+			</Page>
+	</Popover>
+</core:FragmentDefinition>

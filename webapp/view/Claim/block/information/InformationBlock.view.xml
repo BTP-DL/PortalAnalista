@@ -1,0 +1,100 @@
+<mvc:View xmlns:internal="sap.landvisz.internal" controllerName="simplot.portalsanalistaqas.controller.Claim.InformationBlock" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:rich="sap.ui.richtexteditor" xmlns:l="sap.ui.layout">
+    <VBox id="informationVBox" modelContextChange=".onContextChange">
+    <f:Form id="claim-form" editable="true">
+        <f:layout>
+            <f:ResponsiveGridLayout labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+                emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="true"/>
+        </f:layout>
+        <f:formContainers>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.title.label}">
+                        <f:fields>
+                            <Text text="{Titulo}" />
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.user.label}">
+                        <f:fields>
+                            <ComboBox id="userCombo"  items="{claimModel>/Users/Data}" selectedKey="{Usuario}" placeholder="{i18n>claim.user.placeholder}" enabled="{= ${Estado} !== '3'}" valueStateText="{i18n>claim.user.errorState}" selectionChange=".onUserChange">
+                                <core:Item key="{claimModel>Usuario}" text="{claimModel>Usuario}"/>
+                            </ComboBox>
+                            <Button type="Emphasized" text="{i18n>claim.assignToMe.text}" press=".onAssignToMe" visible="{= ${Estado} !== '3'}">
+                                <layoutData>
+                                    <l:GridData span="XL4 L4 M6 S6" />
+                                </layoutData>
+                            </Button>
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.changedBy.label}">
+                        <f:fields>
+                            <Text text="{path: 'AutorMod', formatter: '.formatter.getAutorDescription'}" />
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+            </f:FormContainer>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.reason.label}">
+                        <f:fields>
+                            <ComboBox id="reasonCombo" items="{claimModel>/Reasons/Data}" selectedKey="{Motivo}"  enabled="{= ${Estado} !== '3'}" selectionChange=".onReasonChange" >
+                                <core:Item key="{claimModel>Motivo}" text="{claimModel>Texto}"/>
+                            </ComboBox>
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.asignedDate.label}">
+                        <f:fields>
+                            <Text text="{parts: ['FechaAsig', 'HoraAsig'], formatter: '.formatter.formatStringDate'}" />
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.changeDate.label}">
+                        <f:fields>
+                            <Text text="{parts: ['FechaMod', 'HoraMod'], formatter: '.formatter.formatStringDate'}" />
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+            </f:FormContainer>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.priority.label}">
+                        <f:fields>
+                            <ComboBox items="{claimModel>/Priorities/Data}" selectedKey="{Prioridad}" enabled="{= ${Estado} !== '3'}">
+                                <core:Item key="{claimModel>id}" text="{claimModel>descripcion}"/>
+                            </ComboBox>
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+            </f:FormContainer>
+        </f:formContainers>
+    </f:Form>
+    <f:Form id="claim-text-form" editable="true" visible="{= ${Estado} !== '3'}">
+        <f:layout>
+            <f:ResponsiveGridLayout labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+                emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true"/>
+        </f:layout>
+        <f:formContainers>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement label="{i18n>claim.message.label}">
+                        <f:fields>
+                            <TextArea value="{IvCuerpo}" growing="true" growingMaxLines="7" rows="4" placeholder="{i18n>claim.message.placeholder}"></TextArea>
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+            </f:FormContainer>
+        </f:formContainers>
+    </f:Form>
+    <!-- <Label text="{i18n>claim.message.label}" class="sapUiSmallMarginBeginEnd" /> -->
+    <!-- <rich:RichTextEditor customToolbar="false" showGroupFont="false" showGroupFontStyle="false"
+                showGroupLink="false" showGroupInsert="false" showGroupClipboard="false" value="{IvCuerpo}"
+                showGroupTextAlign="false" showGroupStructure="false" width="100%" class="sapUiSmallMarginBeginEnd"/> -->
+    </VBox>
+</mvc:View>

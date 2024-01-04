@@ -1,0 +1,23 @@
+<mvc:View controllerName="simplot.portalsanalistaqas.controller.Claim.ConversationBlock" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:commons="sap.suite.ui.commons">
+    <commons:Timeline
+		id="idTimeline"
+		enableDoubleSided="false"
+		width="100%"
+		height="100%"
+		enableScroll="false"
+		showHeaderBar="false"
+		showIcons="false"
+		sortOldestFirst="false"
+		sort="false"
+		content="{Posiciones}">
+		<commons:content>
+			<commons:TimelineItem
+				id="idTemplateItem"
+				dateTime="{parts: ['Fecha', 'Hora'], formatter: '.formatter.formatStringDate'}"
+				text="{path: 'Cuerpo', formatter: '.formatter.convertHtmlToText'}"
+				userName="{path: 'Autor', formatter: '.formatter.getAutorDescription'}">
+			</commons:TimelineItem>
+		</commons:content>
+	</commons:Timeline>
+</mvc:View>

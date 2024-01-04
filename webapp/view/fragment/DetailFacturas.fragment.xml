@@ -1,0 +1,340 @@
+<core:FragmentDefinition  xmlns:core="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m"
+    xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"   >
+	<Dialog title="Detalle de factura" contentWidth="100%" contentHeight="97%" >
+        <Page showHeader="false">
+            <content>
+                <Panel>
+                    <content>                
+                        <ObjectHeader class="sapUiSizeCompact"
+                            condensed="true"
+                            title="{/DetailFactura/Factura/Nombre}"
+                            intro="{/DetailFactura/Factura/Lifnr}"
+                            responsive="true">
+                        </ObjectHeader>
+                    
+                    </content>
+                </Panel>                
+
+                <Panel>
+                    <content>                        
+                        <f:Form editable="true">
+                            <f:layout>
+                                <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" 
+                                    adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+                                    columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false"/>
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer>
+                                    <f:formElements>
+                                        <f:FormElement label="{i18n>Numero}">
+                                            <f:fields>
+                                                <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{/DetailFactura/Factura/Numero}"/>
+                                            </f:fields>
+                                        </f:FormElement> 
+                                        <f:FormElement label="{i18n>TipoDocumento}">
+                                            <f:fields>
+                                                <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/Filtros/TipoDoc}" 
+                                                selectedKey="{/DetailFactura/Factura/TipoDoc}">
+                                                    <core:Item key="{key}" text="{value}"/>
+                                                </ComboBox>
+                                            </f:fields>
+                                        </f:FormElement> 
+                                        <f:FormElement label="{i18n>SubtipoDoc}">
+                                            <f:fields>
+                                                <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/ComboSubtipo}" 
+                                                selectedKey="{/DetailFactura/Factura/SubtipoDoc}">
+                                                    <core:Item key="{SubtipoDoc}" text="{Texto}"/>
+                                                </ComboBox>
+                                            </f:fields>
+                                        </f:FormElement> 
+                                        <f:FormElement label="{i18n>Empresa}">
+                                            <f:fields>
+                                            <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/ComboSociedad}" selectedKey="{/DetailFactura/Factura/Sociedad}">
+                                                <core:Item key="{Codigo}" text="{Texto}"/>
+                                            </ComboBox>
+                                            <!--
+                                                <Input value= "{/DetailFactura/Factura/SociedadValue}"/>
+                                            -->
+                                            </f:fields>
+                                        </f:FormElement> 
+                                        <f:FormElement label="{i18n>FechaDoc}">
+                                            <f:fields>
+                                                <DatePicker enabled="{/DetailFactura/Factura/editDocument}"
+                                                    placeholder="DD/MM/YYYY" value="{/DetailFactura/Factura/FechaDoc}"
+                                                    displayFormat="dd/MM/yyyy" valueFormat="dd/MM/yyyy" class="sapUiSmallMarginBottom"/>
+                                                <!--
+                                                <Input value= "{/DetailFactura/Factura/FechaDoc}"/>
+                                                -->
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>Circuito}" visible="true">
+                                            <f:fields>
+                                                <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/Filtros/Circuito}" 
+                                                    selectedKey="{/DetailFactura/Factura/Circuito}" change = "onChangeCircuito">
+                                                    <core:Item key="{key}" text="{value}"/>
+                                                </ComboBox>
+                                                <!--
+                                                <Input value= "{/DetailFactura/Factura/CircuitoValue}"/>
+                                                -->
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>OrdenCompra}">
+                                            <f:fields>
+                                                <Input enabled="{/comboOrdenCompra/habilitado}" 
+                                                    value="{/DetailFactura/Factura/NumOc}" showValueHelp="true" 
+                                                    valueHelpRequest="onValueHelpOCs" valueHelpOnly="true"/>
+                                            </f:fields>
+                                        </f:FormElement>                                                        
+                                    </f:formElements>
+                                </f:FormContainer>
+                                <f:FormContainer>
+                                    <f:formElements>
+                                        <f:FormElement label="{i18n>Moneda}" visible="true">
+                                            <f:fields>
+                                                <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/ComboMoneda}" selectedKey="{/DetailFactura/Factura/Moneda}">
+                                                    <core:Item key="{key}" text="{value}"/>
+                                                </ComboBox>
+                                                <!--
+                                                <Input value= "{/DetailFactura/Factura/Moneda}"/>
+                                                -->
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>Subtotal}" visible="true">
+                                            <f:fields>
+                                                <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{/DetailFactura/Factura/ImpNeto}" liveChange="liveNumberDecimal"/>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>Total}" visible="true">
+                                            <f:fields>
+                                                <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{/DetailFactura/Factura/ImpBruto}" liveChange="liveNumberDecimal"/>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>TCambio}" visible="true">
+                                            <f:fields>
+                                                <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{/DetailFactura/Factura/TipoCambio}" liveChange="liveNumberDecimal"/>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                                <f:FormContainer>
+                                    <f:formElements> 
+                                        <f:FormElement label="{i18n>Modo}">
+                                            <f:fields>
+                                                <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/ComboModo}" selectedKey="{/DetailFactura/Factura/Modo}">
+                                                    <core:Item key="{key}" text="{value}"/>
+                                                </ComboBox>
+                                                <!--
+                                                <Input value= "{/DetailFactura/Factura/ModoValue}"/>
+                                                -->
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>CAE}" visible="true">
+                                            <f:fields>
+                                                <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{/DetailFactura/Factura/Cae}"/>
+                                            </f:fields>
+                                        </f:FormElement>                                                                                    
+                                        <f:FormElement label="{i18n>CaeVence}">
+                                            <f:fields>
+                                                <DatePicker enabled="{/DetailFactura/Factura/editDocument}"
+                                                    placeholder="DD/MM/YYYY" value="{/DetailFactura/Factura/CaeVenc}"
+                                                    displayFormat="dd/MM/yyyy" valueFormat="dd/MM/yyyy" class="sapUiSmallMarginBottom"/>
+                                                <!--
+                                                <Input value= "{/DetailFactura/Factura/CaeVenc}"/>
+                                                -->
+                                            </f:fields>
+                                        </f:FormElement>                                                        
+                                        <f:FormElement label="{i18n>Observacion}" visible="true">
+                                            <f:fields>
+                                                <TextArea enabled="false" rows="4" value="{/DetailFactura/Factura/NotaProveedor}"/>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>                                                
+                            </f:formContainers>
+                        </f:Form>   
+
+                        <Panel expandable="true" expanded="false"  headerText="{i18n>ImpuestoIVA}" width="auto" 
+                            class="sapUiResponsiveMargin" accessibleRole="Region">
+                            <table:Table alternateRowColors="true" rows="{/DetailFactura/Factura/IvaTable}" class="sapUiSizeCompact" 
+                                selectionMode="None" visibleRowCount="{/DetailFactura/Factura/IvaTableMax}">
+
+                                <table:extension>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer/>
+                                        <Button enabled="{/DetailFactura/Factura/editDocument}" icon="sap-icon://add" press="onAddIva"/>
+                                    </OverflowToolbar>
+                                </table:extension>
+
+                                <table:columns >
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center" tooltip="">
+                                        <table:label>
+                                            <Label text="{i18n>Descripcion}" textAlign="Center"/>
+                                        </table:label>
+                                        <table:template class="sapUiTableHeaderRow sapUiTableCell">
+                                            <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/ComboIVA}" selectedKey="{key}">
+                                                <core:Item key="{key}" text="{value}"/>
+                                            </ComboBox>
+                                            <!--
+                                            <Input value= "{item}"/>
+                                            -->
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center" tooltip="">
+                                        <table:label>
+                                            <Label text="{i18n>Importe}" textAlign="Center"/>
+                                        </table:label>
+                                        <table:template class="sapUiTableHeaderRow sapUiTableCell">
+                                            <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{value}" liveChange="liveNumberDecimal"/>
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center" tooltip="">
+                                        <table:label>
+                                            <Label text="{i18n>Quitar}" textAlign="Center"/>
+                                        </table:label>
+                                        <table:template class="sapUiTableHeaderRow sapUiTableCell">
+                                            <Button enabled="{/DetailFactura/Factura/editDocument}" icon="sap-icon://delete" press="onDeleteIva"/>
+                                        </table:template>
+                                    </table:Column>
+                                </table:columns>
+                            </table:Table>  
+                        </Panel>
+
+                        <Panel expandable="true" expanded="false"  headerText="{i18n>ImpuestoIIBB}" width="auto" 
+                            class="sapUiResponsiveMargin" accessibleRole="Region">
+                            <table:Table alternateRowColors="true" rows="{/DetailFactura/Factura/PercepcionesTable}" class="sapUiSizeCompact" 
+                                selectionMode="None" visibleRowCount="{/DetailFactura/Factura/PercepcionesTableMax}">
+
+                                <table:extension>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer/>
+                                        <Button enabled="{/DetailFactura/Factura/editDocument}" icon="sap-icon://add" press="onAddIibb"/>
+                                    </OverflowToolbar>
+                                </table:extension>
+
+                                <table:columns >
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center" tooltip="">
+                                        <table:label>
+                                            <Label text="{i18n>Descripcion}" textAlign="Center"/>
+                                        </table:label>
+                                        <table:template class="sapUiTableHeaderRow sapUiTableCell">
+                                            <ComboBox enabled="{/DetailFactura/Factura/editDocument}" items="{/ComboIIBB}" selectedKey="{key}">
+                                                <core:Item key="{key}" text="{value}"/>
+                                            </ComboBox>
+                                            <!--
+                                            <Input value= "{item}"/>
+                                            -->
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center" tooltip="">
+                                        <table:label>
+                                            <Label text="{i18n>Importe}" textAlign="Center"/>
+                                        </table:label>
+                                        <table:template class="sapUiTableHeaderRow sapUiTableCell">
+                                            <Input enabled="{/DetailFactura/Factura/editDocument}" value= "{value}" liveChange="liveNumberDecimal"/>
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column class="sapUiTableHeaderRow sapUiTableCell" hAlign="Center" tooltip="">
+                                        <table:label>
+                                            <Label text="{i18n>Quitar}" textAlign="Center"/>
+                                        </table:label>
+                                        <table:template class="sapUiTableHeaderRow sapUiTableCell">
+                                            <Button enabled="{/DetailFactura/Factura/editDocument}" icon="sap-icon://delete" press="onDeleteIibb"/>
+                                        </table:template>
+                                    </table:Column>
+                                </table:columns>
+                            </table:Table>  
+                        </Panel>
+
+                        <Panel expandable="true" expanded="true"  visible="{/DetailFactura/Factura/visibleLog}" headerText="{i18n>LogProceso}" width="auto" 
+                            class="sapUiResponsiveMargin" accessibleRole="Region">
+                            <content>
+                                <f:Form editable="true">
+                                    <f:layout>
+                                        <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" 
+                                            adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+                                            columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false"/>
+                                    </f:layout>
+                                    <f:formContainers>
+                                        <f:FormContainer>
+                                            <f:formElements>
+                                                <f:FormElement label="{i18n>FechaProc}" visible="true">
+                                                    <f:fields>
+                                                        <Text text = "{/DetailFactura/Factura/FechaProcFormat}" />
+                                                    </f:fields>
+                                                </f:FormElement>
+                                                <f:FormElement label="{i18n>HoraProc}">
+                                                    <f:fields>
+                                                        <Text text = "{/DetailFactura/Factura/HoraProcFormat}" />
+                                                    </f:fields>
+                                                </f:FormElement>  
+                                                <f:FormElement label="{i18n>Resultado}">
+                                                    <f:fields>
+                                                        <Text text = "{/DetailFactura/Factura/ResultadoProc}" />
+                                                    </f:fields>
+                                                </f:FormElement> 
+
+                                            </f:formElements>
+                                        </f:FormContainer>
+                                        <f:FormContainer>
+                                            <f:formElements>
+                                                <f:FormElement label="{i18n>Mensaje}">
+                                                    <f:fields>
+                                                        <Text text = "{/DetailFactura/Factura/TextoMensaje}" />
+                                                    </f:fields>
+                                                </f:FormElement> 
+                                                <f:FormElement label="{i18n>DocSap}">
+                                                    <f:fields>
+                                                        <Text text = "{/DetailFactura/Factura/DocSap}" />
+                                                    </f:fields>
+                                                </f:FormElement> 
+                                                <f:FormElement label="{i18n>Ejercicio}">
+                                                    <f:fields>
+                                                        <Text text = "{/DetailFactura/Factura/Ejercicio}" />
+                                                    </f:fields>
+                                                </f:FormElement>
+                                            </f:formElements>
+                                        </f:FormContainer>                                              
+                                    </f:formContainers>
+                                </f:Form> 
+                            </content>
+                        </Panel>
+
+                        <Panel>
+                            <PDFViewer visible="{/DetailFactura/PDFViewerDetail/isVisibile}" class="sapUiSmallMarginBegin" source="{/DetailFactura/PDFViewerDetail/SourcePDF}" width="100%"  height="500px">
+                            </PDFViewer>
+                        </Panel>
+                    </content>
+                </Panel>
+
+                
+
+                
+            </content>
+            <footer>
+                <OverflowToolbar>
+                    <Button
+                        enabled="{/DetailFactura/Factura/editDocument}"
+                        type="Emphasized"
+                        text="Grabar"
+                        press="onSaveEdit" />
+                    <Button
+                        enabled="{/DetailFactura/Factura/editDocument}"
+                        type="Accept"
+                        text="Exportar"
+                        press="onSaveExport" />
+                    <Button
+                        enabled="{/DetailFactura/Factura/editDocument}"
+                        type="Reject"
+                        text="{i18n>Rechazar}"
+                        press="onSaveReject" />
+                    <ToolbarSpacer/>
+                    <Button
+                        type="Reject"
+                        text="{i18n>Cerrar}"
+                        press="onPressCancel" />
+                </OverflowToolbar>
+            </footer>
+        </Page>
+	</Dialog>
+	
+</core:FragmentDefinition>

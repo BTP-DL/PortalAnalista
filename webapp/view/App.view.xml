@@ -1,0 +1,9 @@
+<mvc:View controllerName="simplot.portalsanalistaqas.controller.App" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell" width="100%">
+		<App id="app" width="100%">
+			<pages>
+				<mvc:XMLView width="100%" viewName="simplot.portalsanalistaqas.view.Main"></mvc:XMLView>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
